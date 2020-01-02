@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas test</title>
+<script type="text/javascript">
+
+
+const GRID_SIZE = 10
+const GRID_NUMBER = 30
+const colors = ['red', 'green', 'blue', 'yellow', 'pink', 'purple', 'magenta', 'cyan'];
+
+
+const drawGrid = function(ctx) {
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    console.log('color: ' + color);
+    ctx.fillStyle = color;
+    for (let i = 0; i < GRID_NUMBER ; i++) {
+    	 for (let j = 0; j < GRID_NUMBER; j++) {
+    	 	ctx.fillRect(i*GRID_SIZE, j*GRID_SIZE, GRID_SIZE-1, GRID_SIZE-1); 	
+    	 }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	const canvas = document.getElementById('myCanvas');
+	const ctx = canvas.getContext("2d");
+
+	setInterval(function(){drawGrid(ctx);}, 500);
+});
+</script>
+</head>
+<body>
+	<canvas id="myCanvas" width="300" height="300">
+		your brovser does not support canvas element
+	</canvas>
+</body>
+</html>
