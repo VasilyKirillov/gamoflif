@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>canvas test</title>
+	<title>Game of life</title>
 <script type="text/javascript" src="script.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<h1>Game of life</h1>
 	<div>
 		<canvas id="myCanvas" width="280" height="280">
 			your brovser does not support canvas element
@@ -13,8 +14,8 @@
 	</div>
 	<div>
 		<label for="frameRate">Frame rate:</label>
-		<input type="range" id="frameRate" maxlength="4" min="50" name="frameRate"
-			   max="1000" step="25" value="100" placeholder="input frame rate 50 - 1000 ms"/>
+		<input type="range" id="frameRate" maxlength="4" min="0" name="frameRate"
+			   max="1000" step="25" value="50" placeholder="input frame rate 50 - 1000 ms"/>
 	</div>
 	<div>
 		<button id="start">start</button>
