@@ -1,0 +1,16 @@
+#myCanvas {
+    border: 1px solid blue;
+    background-color: #fff;
+} 
+body {
+	background-color: #fee;
+	color: #900;
+}
+button {
+	background-color: #faa;
+	color: #900;
+}
+button:hover {
+	background-color: #faa;
+	color: #f00;
+}
