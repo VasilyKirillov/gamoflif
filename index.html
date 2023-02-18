@@ -8,7 +8,7 @@
 <body>
 	<h1>Game of life</h1>
 	<div>
-		<canvas id="myCanvas" width="280" height="280">
+		<canvas id="myCanvas" width="400" height="400">
 			your brovser does not support canvas element
 		</canvas>
 	</div>
@@ -20,6 +20,11 @@
 	<div>
 		<button id="start">start</button>
 		<button id="stop">stop</button>
+	</div>
+	<div>
+		<p>Rule1: Any live cell with two or three neighbors survives</p>
+		<p>Rule2: Any dead cell with three live neighbors becomes a live cell</p>
+		<p>Rule3: All other live cells die in the next generation. Similarly, all other dead cells stay dead.</p>
 	</div>
 </body>
 </html>

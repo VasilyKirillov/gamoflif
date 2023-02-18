@@ -1,7 +1,7 @@
 const CELL_SIZE = 15
-const GRID_NUMBER = 20
+const GRID_NUMBER = 45
 const colors = ['red', 'green', 'blue', 'yellow', 'pink', 'purple', 'magenta', 'cyan'];
-const DEFAULT_FRAME_RATE = 250;
+const DEFAULT_FRAME_RATE = 250
 
 
 const createField = function(value) {
@@ -14,6 +14,7 @@ const createField = function(value) {
 	}
 	return field;
 }
+
 
 const field = createField(false);
 const field2 = createField(null);
@@ -28,7 +29,7 @@ const drawField = function(ctx, canvasWidth, canvasHeight) {
 		const y_length = field[x].length-1;
 		for (let y = 0; y < field[x].length; y++) {
 			countNeigbours = 0;
-			console.log(`x:${x}, y:${y}`);
+			// console.log(`x:${x}, y:${y}`);
 
 			for (const neigbour of [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) {
 				dx = x + neigbour[0];
@@ -46,7 +47,7 @@ const drawField = function(ctx, canvasWidth, canvasHeight) {
 				if (dy > y_length) {
 					dy = 0;
 				}
-				console.log(`dx:${dx}, dy:${dy}, field[dx][dy]:${field[dx][dy]}`);
+				// console.log(`dx:${dx}, dy:${dy}, field[dx][dy]:${field[dx][dy]}`);
 				countNeigbours += field[dx][dy];
 			}			
 			console.log(`countNeigbours: ${countNeigbours}`);
@@ -85,33 +86,46 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	const frameRateInput = document.getElementById('frameRate');
 	let frameRate = frameRateInput != undefined ? frameRateInput.value : DEFAULT_FRAME_RATE;
 	frameRateInput.onchange = function() {
-		console.log(`frameRate:${this.value}`);
+		// console.log(`frameRate:${this.value}`);
 		frameRate = this.value;
 	};
 
 	const canvas = document.getElementById('myCanvas');
 	const ctx = canvas.getContext("2d");
 	const cellColor = colors[Math.floor(Math.random()*colors.length)];
-	const bgCellColor = canvas.backgroundColor;
+	const bgCellColor = 'white';
 
 	ctx.fillStyle = cellColor;
 
-	canvas.onclick = function(event) {
-		if (!isRunning) {
-			const x = Math.floor(event.x / CELL_SIZE);
-			const y = Math.floor(event.y / CELL_SIZE);
-			console.log(`x:${x},y:${y}; e.x: ${event.x}, e.y: ${event.y}`);
-			field[x][y] = !field[x][y];
-			isInitialized = true;
-			if (field[x][y]) {
+	const fillCell = function(event) {
+		const rectangle = canvas.getBoundingClientRect();
+			if (!isRunning) {
+				const x = Math.floor((event.x - rectangle.x) / CELL_SIZE);
+				const y = Math.floor((event.y - rectangle.y) / CELL_SIZE);
+				field[x][y] = !field[x][y];
+				isInitialized = true;
+				if (field[x][y]) {
+					ctx.fillStyle = cellColor;
+				} else {
+					ctx.fillStyle = bgCellColor;
+				}
+				ctx.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE-1, CELL_SIZE-1);
 				ctx.fillStyle = cellColor;
-			} else {
-				ctx.fillStyle = bgCellColor;
-			}
-			ctx.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE-1, CELL_SIZE-1);
-			ctx.fillStyle = cellColor;
 		}		
 	}
+
+	canvas.addEventListener('mousemove', function(event) {
+		if(event.buttons == 1) {
+			event.preventDefault();
+			fillCell(event);
+		}
+	});
+
+
+	canvas.onclick = function(event) {
+		fillCell(event);		
+	}
+
 
 	let intervalId = null;
 
@@ -137,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 			});
 		}
 	};
+
 	
 });
 
